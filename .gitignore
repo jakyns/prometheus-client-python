@@ -1,0 +1,29 @@
+*.pyc
+*.egg
+*.egg-info
+.eggs/
+.vagrant/
+dist/
+
+# Tests
+.coverage
+.noseids
+.tox/
+
+# Configuration
+config/development.cfg
+config/staging.cfg
+config/production.cfg
+
+# Editor
+.vscode/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.env.*.local
