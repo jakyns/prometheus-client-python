@@ -1,13 +1,25 @@
+import time
+
 from metrics.event.sample_event import SampleEvent
 
 
 class Metrics:
     WHITELISTED_EVENT = [SampleEvent()]
 
-    @classmethod
-    def record(cls, event, result):
+    def __init__(self, event):
+        self.event = event
+
+    def __enter__(self):
+        self.start_time = time.time()
+        return self
+
+    def __exit__(self, *exc):
+        return
+
+    def record(self, result):
         try:
-            event = cls().__known_events()[event]
+            event = self.__known_events()[self.event]
+            result = dict(result, **{"start_time": self.start_time})
             event.record(result)
         except KeyError:
             raise NotImplementedError("unknown metrics event")

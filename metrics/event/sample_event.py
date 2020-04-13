@@ -8,22 +8,22 @@ from metrics.event import Event
 
 class SampleEvent(Event):
     METRICS = {
-        "result": Counter("request_result", "request result"),
-        "latency": Histogram("request_latency", "request latency"),
+        "result": Counter("charge_result", "charge result", ["error"]),
+        "latency": Histogram("charge_latency", "charge latency"),
     }
 
     def record_realtime(self, result):
-        start_time = result["created_at"]
+        start_time = result["start_time"]
         duration = (time.time() - start_time) * 1000
 
         self.METRICS["latency"].observe(duration)
 
     def record_success(self, result):
-        self.METRICS["result"].inc()
+        self.METRICS["result"].labels(error=None).inc()
 
     def record_failure(self, e):
         e = self._camel_to_snake(e)
-        self.METRICS["result"].inc()
+        self.METRICS["result"].labels(error=e).inc()
 
     # protected
 

@@ -2,7 +2,7 @@ class Event:
     def record(self, result):
         self.record_realtime(result)
 
-        if not result["error"]:
-            self.record_success(result)
-        else:
+        if "error" in result:
             self.record_failure(result["error"])
+        else:
+            self.record_success(result)
