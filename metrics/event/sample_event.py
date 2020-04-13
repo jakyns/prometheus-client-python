@@ -8,8 +8,8 @@ from metrics.event import Event
 
 class SampleEvent(Event):
     METRICS = {
-        "result": Counter("charge_result", "charge result", ["error"]),
-        "latency": Histogram("charge_latency", "charge latency"),
+        "result": Counter("sample_result", "sample result", ["error"]),
+        "latency": Histogram("sample_latency", "sample latency"),
     }
 
     def record_realtime(self, result):
