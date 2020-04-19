@@ -34,8 +34,21 @@ python app.py
 in case of you want to create your own event
 - implement your event class (must end with `_event` suffix) to `metrics/event/`
 - add your new event class to constant `WHITELISTED_EVENT` in `metrics/__init__.py`
-- add `Metrics.record("{event_name}", "{dict_object}")` to which part you want 
-  to collect metric
+- add `Metrics.record("{event_name}", "{dict_object}")` line inside context
+  `with Metrics("{event_name}") as metrics:` to collect metric
+
+eg.
+
+```
+with Metrics("sample") as metrics:
+    try:
+        time.sleep(1)
+    except Exception as e:
+        result = {}
+        result["error"] = e
+
+    metrics.record(result)
+```
 
 ### docker-compose
 
