@@ -19,8 +19,7 @@ class Metrics:
     def record(self, result):
         try:
             event = self.__known_events()[self.event]
-            result = dict(result, **{"start_time": self.start_time})
-            event.record(result)
+            event.record(result, start_time=self.start_time)
         except KeyError:
             raise NotImplementedError("unknown metrics event")
 

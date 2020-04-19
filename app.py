@@ -10,11 +10,10 @@ if __name__ == "__main__":
     while True:
         # record metric every second
         with Metrics("sample") as metrics:
-            result = {}
-
             try:
                 time.sleep(1)
             except Exception as e:
+                result = {}
                 result["error"] = e
 
             metrics.record(result)
