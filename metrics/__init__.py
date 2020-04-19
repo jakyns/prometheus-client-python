@@ -1,4 +1,5 @@
 import time
+from typing import Any
 
 from metrics.event.sample_event import SampleEvent
 
@@ -6,7 +7,7 @@ from metrics.event.sample_event import SampleEvent
 class Metrics:
     WHITELISTED_EVENT = [SampleEvent()]
 
-    def __init__(self, event):
+    def __init__(self, event: str):
         self.event = event
 
     def __enter__(self):
@@ -16,7 +17,7 @@ class Metrics:
     def __exit__(self, *exc):
         return
 
-    def record(self, result):
+    def record(self, result: Any) -> None:
         try:
             event = self.__known_events()[self.event]
             event.record(result, start_time=self.start_time)
@@ -25,7 +26,7 @@ class Metrics:
 
     # private
 
-    def __known_events(self):
+    def __known_events(self) -> dict:
         event_list = {}
 
         for event in self.WHITELISTED_EVENT:

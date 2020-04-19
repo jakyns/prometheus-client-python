@@ -1,3 +1,5 @@
+from typing import Any, Union
+
 from prometheus_client import Counter, Histogram
 
 from metrics.event import Event
@@ -27,7 +29,7 @@ class SampleEvent(Event):
 
     # protected
 
-    def _transform_result(self, result):
+    def _transform_result(self, result: Union[dict, Any]) -> dict:
         if isinstance(result, dict) and "error" in result:
             return {"error": result["error"]}
         else:
