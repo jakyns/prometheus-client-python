@@ -43,6 +43,7 @@ eg.
 with Metrics("sample") as metrics:
     try:
         time.sleep(1)
+        result = "response"
     except Exception as e:
         result = {}
         result["error"] = e

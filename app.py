@@ -11,7 +11,8 @@ if __name__ == "__main__":
         # record metric every second
         with Metrics("sample") as metrics:
             try:
-                result = time.sleep(1)
+                time.sleep(1)
+                result = "response"
             except Exception as e:
                 result = {}
                 result["error"] = e
