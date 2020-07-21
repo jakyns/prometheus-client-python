@@ -1,4 +1,4 @@
-# Prometheus Metrics Collector Model
+# Prometheus Client - Python
 
 Sample app for collecting metrics into Prometheus by specific event class.
 
@@ -61,14 +61,14 @@ with Metrics("sample") as metrics:
 LABELS["error", "status"]
 ```
 
-- modify `_transform_result` method in event class 
+- modify `_transform_result_to_labels` method in event class
 
 ```python
-def _transform_result(self, result: Any) -> dict:
+def _transform_result_to_labels(self, result: Any) -> dict:
     if isinstance(result, dict) and "error" in result:
         return {"status": "error", "error": result["error"]}
     else:
-        return {"status": result.status, "error": None}
+        return {"status": result["status"], "error": None}
 ```
 
 ### docker-compose

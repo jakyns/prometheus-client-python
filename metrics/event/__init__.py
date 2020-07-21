@@ -5,29 +5,29 @@ from typing import Any, Type
 
 class Event:
     def record(self, result: Any, **kwargs: dict) -> None:
-        result = self._transform_result(result)
+        labels = self._transform_result_to_labels(result)
 
-        self.record_realtime(result, **kwargs)
+        self.record_realtime(labels, **kwargs)
 
-        if result["error"]:
-            self.record_failure(result)
+        if labels["error"]:
+            self.record_failure(labels)
         else:
-            self.record_success(result)
+            self.record_success(labels)
 
-    def record_realtime(self, result: dict, **kwargs: dict) -> None:
+    def record_realtime(self, labels: dict, **kwargs: dict) -> None:
         start_time = kwargs["start_time"]
         duration = (time.time() - start_time) * 1000
 
-        self.METRICS["latency"].labels(**result).observe(duration)
+        self.METRICS["latency"].labels(**labels).observe(duration)
 
-    def record_success(self, result: dict) -> None:
-        self.METRICS["result"].labels(**result).inc()
+    def record_success(self, labels: dict) -> None:
+        self.METRICS["result"].labels(**labels).inc()
 
-    def record_failure(self, result: dict) -> None:
-        exception = result["error"]
-        result["error"] = self._camel_to_snake(exception)
+    def record_failure(self, labels: dict) -> None:
+        exception = labels["error"]
+        labels["error"] = self._camel_to_snake(exception)
 
-        self.METRICS["result"].labels(**result).inc()
+        self.METRICS["result"].labels(**labels).inc()
 
         raise exception
 

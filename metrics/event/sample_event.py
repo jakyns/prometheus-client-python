@@ -29,7 +29,7 @@ class SampleEvent(Event):
 
     # protected
 
-    def _transform_result(self, result: Union[dict, Any]) -> dict:
+    def _transform_result_to_labels(self, result: Union[dict, Any]) -> dict:
         if isinstance(result, dict) and "error" in result:
             return {"error": result["error"]}
         else:
