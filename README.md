@@ -69,14 +69,3 @@ def _transform_result_to_labels(self, result: Union[dict, Any]) -> dict:
     else:
         return {"status": result["status"], "error": None}
 ```
-
-### docker-compose
-
-```sh
-docker-compose up
-```
-
-You can see how it collects metrics in Prometheus from http://0.0.0.0 and can
-observe all metrics by adding metrics souce from prometheus protocol by
-http://0.0.0.0:9090 and configure to any types of dashboard as you wish in
-Grafana by http://0.0.0.0:3000.
