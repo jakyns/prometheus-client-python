@@ -1,3 +1,4 @@
+import random
 import time
 
 from prometheus_client import start_http_server
@@ -11,7 +12,8 @@ if __name__ == "__main__":
         # record metric every second
         with Metrics("sample") as metrics:
             try:
-                time.sleep(1)
+                # random between 1s and 10s
+                time.sleep(random.randint(1000, 10000) / 1000)
                 result = "response"
             except Exception as e:
                 result = {}

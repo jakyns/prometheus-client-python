@@ -13,17 +13,7 @@ class SampleEvent(Event):
             "sample_latency",
             "sample latency",
             LABELS,
-            buckets=[
-                1000,
-                2000,
-                3000,
-                5000,
-                10000,
-                30000,
-                60000,
-                120000,
-                300000,
-            ],  # 1s to 5m
+            buckets=[1000, 2000, 3000, 5000, 10000],  # 1s to 10s
         ),
     }
 
